@@ -9,8 +9,7 @@ class BaseCond:
 
 class SimpleCond(BaseCond, metaclass=ABCMeta):
     def __init__(self, keywords, var_name=None):
-        if not var_name:
-            var_name = 'var'
+        self.var_name = var_name or 'var'
         self.keywords = keywords
 
     @property
@@ -23,11 +22,12 @@ class SimpleCond(BaseCond, metaclass=ABCMeta):
 
 class ContainCond(SimpleCond, metaclass=ABCMeta):
     COND_TYPE = 'contain'
-    CODE_TEMPLATE = '{operation}(text in var for text in {keywords_str})'
+    CODE_TEMPLATE = '{operation}(text in {var_name} for text in {keywords_str})'
 
     def generate_code(self):
         return self.CODE_TEMPLATE.format(
             operation=self.OPERATION,
+            var_name=self.var_name,
             keywords_str=self.keywords_str
         )
 
@@ -45,16 +45,17 @@ class ContainAllCond(ContainCond):
 class MatchAnyCond(SimpleCond, metaclass=ABCMeta):
     COND_TYPE = 'match'
     OPERATION = 'in'
-    CODE_TEMPLATE = 'var in {keywords_str}'
+    CODE_TEMPLATE = '{var_name} in {keywords_str}'
 
     def generate_code(self):
-        return self.CODE_TEMPLATE.format(keywords_str=self.keywords_str)
+        return self.CODE_TEMPLATE.format(var_name=self.var_name,
+                                         keywords_str=self.keywords_str)
 
 
 class ComplexCond(metaclass=ABCMeta):
     JOIN_CODE_TEMPLATE = ' {operation} '
 
-    def __init__(self, condtions):
+    def __init__(self, condtions, **kwargs):
         self.conditions = condtions
 
     def generate_code(self):
