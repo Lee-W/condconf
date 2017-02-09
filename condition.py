@@ -16,9 +16,8 @@ class SimpleCond(BaseCond, metaclass=ABCMeta):
     def keywords_str(self):
         return "['{}']".format("', '".join(self.keywords))
 
-    def __str__(self):
+    def __repr__(self):
         return self.generate_code()
-
 
 class ContainCond(SimpleCond, metaclass=ABCMeta):
     COND_TYPE = 'contain'

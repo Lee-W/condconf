@@ -38,14 +38,13 @@ def condition_factory(cond_dict, *,
         cond_cls = ComplexAnyCond
     else:
         raise ValueError('{cond_type} is not supported'.format(
-            cond_type=cond_type)
-        )
+            cond_type=cond_type))
     return cond_cls(content, var_name=var_name)
 
 
 # FIXME: text cannot be var_name, it's temp name in list comprehension
 class ConditionMeta(type):
-    def __new__(meta, clsname, supers, classdict,
+    def __new__(mcs, clsname, supers, classdict,
                 cond_funcs, cond_options=None):
 
         if not cond_options:
@@ -71,4 +70,4 @@ class ConditionMeta(type):
             )
             exec(func_code)
             classdict[func_name] = eval(func_name)
-        return super().__new__(meta, clsname, supers, classdict)
+        return super().__new__(mcs, clsname, supers, classdict)
