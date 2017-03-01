@@ -5,8 +5,7 @@ DEFAULT_FUNCTION_TEMPLATE = """{decorators}def {function_name}({function_args}):
     {pre_process_code}if {true_condition}:
         return True
     else:
-        return False
-"""
+        return False"""
 
 
 class CondFunction:
@@ -33,3 +32,6 @@ class CondFunction:
         return self.template.format(
             **template_args
         )
+
+    def __repr__(self):
+        return self.generate_code()
