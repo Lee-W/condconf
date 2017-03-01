@@ -3,8 +3,8 @@ from .cond import (
     ComplexAllCond, ComplexAnyCond
 )
 
-from .cond_generator import (
-    cond_factory, ConditionMeta, cond_func_generator
-)
-
 from .cond_function import CondFunction
+
+from .cond_generator import (
+    cond_factory, CondMeta, cond_func_generator
+)

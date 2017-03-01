@@ -60,7 +60,7 @@ def cond_func_generator(cond_func_configs, *, template_args=None):
         yield cond_func
 
 
-class ConditionMeta(type):
+class CondMeta(type):
     def __new__(mcs, clsname, supers, classdict, *, cond_funcs):
         for cond_func in cond_funcs:
             func_code = cond_func.generate_code()
