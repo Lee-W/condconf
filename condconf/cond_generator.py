@@ -1,4 +1,5 @@
 import logging
+from copy import deepcopy
 
 
 from .cond import (
@@ -50,7 +51,13 @@ def cond_func_generator(cond_func_configs, template_args=None, *,
     for func_config in cond_func_configs:
         func_name = func_config['name']
         cond = cond_factory(func_config['condition'], var_name=cond_var_name)
-        cond_func = CondFunction(func_name, cond, **template_args)
+        custom_template_args = func_config.get('template_args')
+        if custom_template_args:
+            local_template_args = deepcopy(template_args)
+            local_template_args.update(custom_template_args)
+            cond_func = CondFunction(func_name, cond, **local_template_args)
+        else:
+            cond_func = CondFunction(func_name, cond, **template_args)
         yield cond_func
 
 
