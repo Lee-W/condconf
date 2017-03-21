@@ -4,7 +4,7 @@ from distutils.core import setup
 setup(
     name='condconf',
     packages=['condconf'],
-    version='0.1',
+    version='0.1.1',
     description='Generate condition functions from configuration files.',
     author='Lee-W',
     author_email='cl87654321@gmail.com',

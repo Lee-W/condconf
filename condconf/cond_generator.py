@@ -75,3 +75,6 @@ class CondMeta(type):
             exec(func_code)
             classdict[cond_func.func_name] = eval(cond_func.func_name)
         return super().__new__(mcs, clsname, supers, classdict)
+
+    def __init__(*args, **kwargs):
+        pass
