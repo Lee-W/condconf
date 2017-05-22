@@ -89,11 +89,11 @@ The class would be generated as follow
 class CondCls(base_classes):
 	@log_text
 	def is_greeting(self, text):
-    msg = text.strip()
-    if any(tmp in msg for tmp in ['hi', 'hello']) and any(tmp in msg for tmp in ['there']):
-        return True
-    else:
-        return False
+		msg = text.strip()
+		if any(tmp in msg for tmp in ['hi', 'hello']) and any(tmp in msg for tmp in ['there']):
+			return True
+		else:
+			return False
         
 	@log_text
 	def is_goodbye(self, text):
